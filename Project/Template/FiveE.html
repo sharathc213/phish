@@ -1,0 +1,77 @@
+{% load static %}
+<h2 data-aos="fade-up">
+    Please choose your desired coupon.</h2>
+<!-- <p data-aos="fade-up" data-aos-delay="100">Please fill in the details, and you will receive a lucky draw code. At the end of the event, a lucky draw will be conducted, and one of you will receive a surprising gift.</p>
+ -->
+
+<div class="row gy-4">
+
+    <div onclick="hai('Amazon')" class="col-lg-4 col-md-6 " data-aos="fade-up " data-aos-delay="100 ">
+        <div class="card ">
+            <div class="card-img ">
+                <img src="{% static 'img/Amazon-Logo.png' %} " alt=" " class="img-fluid ">
+            </div>
+        </div>
+    </div>
+    <!-- End Card Item -->
+
+    <div onclick="hai( 'Flipkart') " class="col-lg-4 col-md-6 " data-aos="fade-up " data-aos-delay="200 ">
+        <div class="card ">
+            <div class="card-img ">
+                <img src="{% static 'img/flipkart.png' %} " alt=" " class="img-fluid ">
+            </div>
+        </div>
+    </div>
+    <!-- End Card Item -->
+
+    <div onclick="hai( 'Ajio') " class="col-lg-4 col-md-6 " data-aos="fade-up " data-aos-delay="300 ">
+        <div class="card ">
+            <div class="card-img ">
+                <img src="{% static 'img/ajio.png' %} " alt=" " class="img-fluid ">
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="form-group mt-3 ">
+
+</div>
+<div class="row loc ">
+
+
+</div>
+<div class="form-group mt-3 ">
+    <script>
+        function hai(plt) {
+            $(".bbttnn ").show()
+            $(".loc ").html('<div class="col-md-12 form-group "><input type="text " name="name " class="form-control username " id="userInput " placeholder=" ' + plt + ' username " required><div class="username_error " style="color:red "></div></div><input hidden class="platform" value=" ' + plt + '">')
+        }
+
+        function loadFiveend() {
+            var username = $(".username").val();
+            var platform = $(".platform").val();
+            if (username == "") {
+                $(".username_error").html("Please fill the field");
+            } else {
+                $(".username_error").html("");
+                let csf = $("input[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                    headers: {
+                        "X-CSRFToken": csf
+                    },
+                    url: "/Fiveend",
+                    type: "POST",
+                    data: {
+                        username: username,
+                        platform: platform
+                    },
+
+                    success: function(data) {
+                        $('.lodder').html(data);
+                    }
+                });
+            }
+        }
+    </script>
+</div>
+<button style="display:none " type="submit " onclick="loadFiveend() " class="btn btn-primary bbttnn ">Submit</button>

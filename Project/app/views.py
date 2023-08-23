@@ -40,6 +40,8 @@ def One(request):
         return render(request, 'One.html',{'page':'five'})
     elif current_page == 6:
         return render(request, 'One.html',{'page':'six'})
+    elif current_page == 5.5:
+        return render(request, 'One.html',{'page':'fivee'})
     else:
         return render(request, 'One.html',{'page':'one'})
 
@@ -80,14 +82,13 @@ def Three(request):
 "flower",
 "athapookalam",
 "onakkodi",
-"thrikkakara appan",
 "coconut",
 "chundan vallam",
 "kaikottikali",
 "puli inji"
     ]
     request.session['current_page'] = 5
-    random_words = random.sample(all_words, 10)
+    random_words = random.sample(all_words, 8)
     request.session['phrase'] = random_words
 
     return render(request, 'Three.html',{'phrase':random_words})
@@ -101,19 +102,20 @@ def Four(request):
     phrase_6= request.POST.get('phrase_6')
     phrase_7 = request.POST.get('phrase_7')
     phrase_8 = request.POST.get('phrase_8')
-    phrase_9 = request.POST.get('phrase_9')
-    phrase_10 = request.POST.get('phrase_10')
-    phrase=[phrase_1,phrase_2,phrase_3,phrase_4,phrase_5,phrase_6,phrase_7,phrase_8,phrase_9,phrase_10]
+   
+    phrase=[phrase_1,phrase_2,phrase_3,phrase_4,phrase_5,phrase_6,phrase_7,phrase_8]
     old_phrase = request.session.get('phrase', [])
 
     similarity_score = jaccard_similarity(old_phrase, phrase)
 
     percentage_similarity = similarity_score * 100
     predicted_amount = predict_voucher_amount(percentage_similarity)
-    print(f"Jaccard Similarity: {predicted_amount:.2f}%")
+    # print(f"Jaccard Similarity: {predicted_amount:.2f}%")
     email = request.session.get('email', None)
     user = Entry.objects.get(email=email)
+    print(user)
     user.value=round(predicted_amount)
+    user.last_status=4
     user.save()
     request.session['per'] = round(predicted_amount)
     request.session['current_page'] = 4
@@ -126,14 +128,14 @@ def loadFour(request):
     return render(request, 'Four.html',{"per":per})
 
 def Five(request):
-    cemail = request.POST.get('cemail')
+    designation = request.POST.get('cemail')
     name = request.POST.get('name')
     phno = request.POST.get('phno')
     emp_id = request.POST.get('emp_id')
     email = request.session.get('email', None)
     user = Entry.objects.get(email=email)
     user.name=name
-    user.cemail=cemail
+    user.designation=designation
     user.phone_no=phno
     user.emp_id=emp_id
     user.last_status=5
@@ -150,3 +152,43 @@ def Six(request):
     code = request.session.get('cooponcode', None)
    
     return render(request, 'six.html',{"code":code})
+
+def FiveE(request):
+    designation = request.POST.get('cemail')
+    name = request.POST.get('name')
+    phno = request.POST.get('phno')
+    emp_id = request.POST.get('emp_id')
+    email = request.session.get('email', None)
+    user = Entry.objects.get(email=email)
+    user.name=name
+    user.designation=designation
+    user.phone_no=phno
+    user.emp_id=emp_id
+    user.last_status=5
+    
+    characters = string.ascii_letters + string.digits  
+    random_string = ''.join(random.choice(characters) for _ in range(10))
+    user.code=random_string
+    user.save()
+    request.session['cooponcode'] = random_string
+    request.session['current_page'] = 5.5
+
+   
+    return render(request, 'FiveE.html')
+
+def Fiveend(request):
+    username = request.POST.get('username')
+    platform = request.POST.get('platform')
+    email = request.session.get('email', None)
+    user = Entry.objects.get(email=email)
+    user.username = username
+    user.platform = platform
+    user.last_status = 6
+    user.save()
+    request.session['current_page'] = 6
+
+    code = request.session.get('cooponcode', None)
+    return render(request, 'six.html',{"code":code})
+
+# def search(request):
+#      company_list=list(Companyname.objects.all().values())

@@ -46,6 +46,23 @@ function loadSix() {
 
 }
 
+function loadFiveE() {
+
+    let csf = $("input[name=csrfmiddlewaretoken]").val();
+    $.ajax({
+        headers: { "X-CSRFToken": csf },
+        url: "/FiveE",
+        type: "POST",
+        // dataType: "json",
+        success: function(data) {
+
+            $('.lodder').html(data);
+        }
+    });
+
+}
+
+
 function loadThree() {
     var company_name = $(".company_name").val();
     var email = $(".email").val();
@@ -218,6 +235,12 @@ function loadFive() {
     var name = $(".name").val();
     var phno = $(".phno").val();
     var emp_id = $(".emp_id").val();
+    var per = $(".per").val();
+    if (per == 0) {
+        var url = "/Five"
+    } else {
+        var url = "/FiveE"
+    }
     var ph_t = true;
     var e_t = true
     var nam_t = true
@@ -238,14 +261,7 @@ function loadFive() {
         var e_t = false
         $(".cemail_error").html("Please Fill the feald");
     } else {
-        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        if (regex.test(cemail)) {
-
-            $(".cemail_error").html("");
-        } else {
-            var e_t = true
-            $(".cemail_error").html("Please Enter A Valid  E-mail");
-        }
+        $(".cemail_error").html("");
 
     }
 
@@ -268,7 +284,7 @@ function loadFive() {
         let csf = $("input[name=csrfmiddlewaretoken]").val();
         $.ajax({
             headers: { "X-CSRFToken": csf },
-            url: "/Five",
+            url: url,
             type: "POST",
             data: {
                 cemail: cemail,
