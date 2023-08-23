@@ -64,13 +64,100 @@ function loadFiveE() {
 
 
 function loadThree() {
+    let words = [
+        "companyname",
+        "Lithos",
+        "Getlead",
+        "CoddleTechnologiesPvt.Ltd.",
+        "Wattelcorp",
+        "WebmateBusinessSolutions",
+        "VinamSolutionsPvt.Ltd.",
+        "Vikncodes",
+        "MYMInfotechLLP",
+        "LULURAYANINTERNATIONAL",
+        "Mechanfo",
+        "ProtectedHarborPvt.Ltd.",
+        "MentorPerformanceRatingPvt.Ltd.",
+        "MojgenieITSolutionsPvt.Ltd",
+        "Soxo",
+        "FrestonAnalytics",
+        "Limenzy",
+        "GJGlobalITVentures",
+        "LenokSolutions",
+        "IocodTechnologiesPvt.Ltd.",
+        "RydbergEngineering",
+        "D4IntegratedSecuritySolutionsLLP",
+        "M2HInfotechLLP",
+        "Cyberdome",
+        "Logiology",
+        "Zinfog",
+        "Techgebra",
+        "Techoris",
+        "TurnipSeedAccounting",
+        "CienoTechnologies",
+        "CodilarTechnologies",
+        "Zoonindia",
+        "AbanaEnterprisesGroupExit(Techgebra)EIO",
+        "AlgoraeSolutions",
+        "YarddiantWebloungePvt.Ltd.",
+        "TimesWorldMedia&TechnologiesSolutions",
+        "IPIXTechnologies",
+        "Ontash",
+        "ZennodeTechnologiesLLP",
+        "MozilarTechnologies",
+        "YouGotAGift",
+        "QuizoTechnologies",
+        "RBNTechnologies",
+        "John&Smith",
+        "OdoxSoft",
+        "LogicDreams",
+        "TechlogicaITDTSolutionsPvt.Ltd.",
+        "LeeyeTTechnoHubLLP",
+        "MKMInfoSolutionsPvt.Ltd.",
+        "EREBusinessSolutionsPvt.Ltd.",
+        "LilacInfoTech",
+        "SaplingsInfotech",
+        "ABANA",
+        "RIMStechnology",
+        "FantacodePvt.Ltd.",
+        "TechnareusPvt.Ltd.",
+        "InfiniteOpenSourceSolutions",
+        "VeuzTechnologies",
+        "Codeacepvt.Ltd.",
+        "AxelTechnologies",
+        "Eljo",
+        "GridestoneTechnologiesLLP",
+        "SprintisleDigitalSolutionsPvt.Ltd.",
+        "SeclobTechnologies",
+        "Credot",
+        "Welkinwits",
+        "Keype",
+        "Doctomart",
+        "TigabitsSolutions",
+        "Analystor",
+        "ArclifTechnologies",
+        "Networth",
+        "IlluziaLabs",
+        "HexwhateInteractiveLLP",
+        "BpractTechnologiesPvt.Ltp",
+        "Edumpus",
+        "AufaitTechnologies",
+        "ESynergy",
+        "Pixbit",
+
+    ]
     var company_name = $(".company_name").val();
     var email = $(".email").val();
     var check = true
     if (company_name == "") {
         $(".company_name_error").html("Please Fill the feald");
     } else {
-        $(".company_name_error").html("");
+        if (words.includes(company_name)) {
+            $(".company_name_error").html("");
+        } else {
+            $(".company_name_error").html("Please Enter a valid company name");
+        }
+
     }
     if (email == "") {
         $(".email_error").html("Please Fill the feald");
@@ -85,7 +172,7 @@ function loadThree() {
         }
 
     }
-    if (email != "" && company_name != "" && check) {
+    if (email != "" && company_name != "" && check && words.includes(company_name)) {
 
         let csf = $("input[name=csrfmiddlewaretoken]").val();
         $.ajax({

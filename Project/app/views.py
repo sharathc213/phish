@@ -47,51 +47,54 @@ def One(request):
 
 
 def Two(request):
-    company_list=list(Companyname.objects.all().values())
+    company_list = list(Companyname.objects.values_list('companyname', flat=True))
+
+
+    # company_list=list(Companyname.objects.all().values())
     return render(request, 'Two.html',{"list":company_list})
 
 def Three(request):
     company_name= request.POST.get('company_name')
     email = request.POST.get('email')
-    # Create and save a Company instance
+    # Create and save a Company instanceFF
 
 
-    # if Entry.objects.filter(email=email).count() > 0:
-    # # Data exists
-    #     return render(request, 'Two.html',{"error":"Email already Registered"})
-    # else:
+    if Entry.objects.filter(email=email).count() > 0:
+    # Data exists
+        return render(request, 'Two.html',{"error":"Email already Registered"})
+    else:
     # Data does not exist
 
-    request.session['email'] = email
-    entry = Entry(company_name=company_name, email=email,last_status=3)
-    entry.save()
+        request.session['email'] = email
+        entry = Entry(company_name=company_name, email=email,last_status=3)
+        entry.save()
 
-    request.session['current_page'] = 3
-    all_words = [
-       "onam",
-"pookalam",
-"sadya",
-"vallam kali",
-"kathakali",
-"pulikali",
-"thiruvonam",
-"maveli",
-"banana leaf",
-"payasam",
-"kerala",
-"flower",
-"athapookalam",
-"onakkodi",
-"coconut",
-"chundan vallam",
-"kaikottikali",
-"puli inji"
-    ]
-    request.session['current_page'] = 5
-    random_words = random.sample(all_words, 8)
-    request.session['phrase'] = random_words
+        request.session['current_page'] = 3
+        all_words = [
+        "onam",
+    "pookalam",
+    "sadya",
+    "vallam kali",
+    "kathakali",
+    "pulikali",
+    "thiruvonam",
+    "maveli",
+    "banana leaf",
+    "payasam",
+    "kerala",
+    "flower",
+    "athapookalam",
+    "onakkodi",
+    "coconut",
+    "chundan vallam",
+    "kaikottikali",
+    "puli inji"
+        ]
+        request.session['current_page'] = 5
+        random_words = random.sample(all_words, 8)
+        request.session['phrase'] = random_words
 
-    return render(request, 'Three.html',{'phrase':random_words})
+        return render(request, 'Three.html',{'phrase':random_words})
 
 def Four(request):
     phrase_1 = request.POST.get('phrase_1')
@@ -151,7 +154,7 @@ def Five(request):
 def Six(request):
     code = request.session.get('cooponcode', None)
    
-    return render(request, 'six.html',{"code":code})
+    return render(request, 'Six.html',{"code":code})
 
 def FiveE(request):
     designation = request.POST.get('cemail')
@@ -188,7 +191,7 @@ def Fiveend(request):
     request.session['current_page'] = 6
 
     code = request.session.get('cooponcode', None)
-    return render(request, 'six.html',{"code":code})
+    return render(request, 'Six.html',{"code":code})
 
 # def search(request):
 #      company_list=list(Companyname.objects.all().values())

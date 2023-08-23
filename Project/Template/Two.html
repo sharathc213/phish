@@ -1,7 +1,7 @@
  {% load static %}
 <h2 data-aos="fade-up">Please provide the requested information.</h2>
 <!-- <p data-aos="fade-up" data-aos-delay="100">Facere distinctio molestiae nisi fugit tenetur repellat non praesentium nesciunt optio quis sit odio nemo quisquam. eius quos reiciendis eum vel eum voluptatem eum maiores eaque id optio ullam occaecati odio est possimus vel reprehenderit</p> -->
-
+<input class="list" value="{{list}}" hidden>
 <div class="row">
     <div class="col-md-6 form-group">
 
@@ -10,9 +10,10 @@
 
         <div id="suggestions"></div>
         <div class="company_name_error" style="color:red"></div>
+
     </div>
     <div class="col-md-6 form-group mt-3 mt-md-0">
-        <input type="email" class="form-control email" name="email" id="email" placeholder="Personal Email" required>
+        <input type="email" class="form-control email" name="email" id="email" placeholder="Official Email" required>
         <div class="email_error" style="color:red">{{error}}</div>
     </div>
 </div>
@@ -21,18 +22,142 @@
 
 </div>
 <script>
-    var availableCompanies = {
-        {
-            list | tojson | safe
-        }
+    let words = [
+        "companyname",
+        "Lithos",
+        "Getlead",
+        "CoddleTechnologiesPvt.Ltd.",
+        "Wattelcorp",
+        "WebmateBusinessSolutions",
+        "VinamSolutionsPvt.Ltd.",
+        "Vikncodes",
+        "MYMInfotechLLP",
+        "LULURAYANINTERNATIONAL",
+        "Mechanfo",
+        "ProtectedHarborPvt.Ltd.",
+        "MentorPerformanceRatingPvt.Ltd.",
+        "MojgenieITSolutionsPvt.Ltd",
+        "Soxo",
+        "FrestonAnalytics",
+        "Limenzy",
+        "GJGlobalITVentures",
+        "LenokSolutions",
+        "IocodTechnologiesPvt.Ltd.",
+        "RydbergEngineering",
+        "D4IntegratedSecuritySolutionsLLP",
+        "M2HInfotechLLP",
+        "Cyberdome",
+        "Logiology",
+        "Zinfog",
+        "Techgebra",
+        "Techoris",
+        "TurnipSeedAccounting",
+        "CienoTechnologies",
+        "CodilarTechnologies",
+        "Zoonindia",
+        "AbanaEnterprisesGroupExit(Techgebra)EIO",
+        "AlgoraeSolutions",
+        "YarddiantWebloungePvt.Ltd.",
+        "TimesWorldMedia&TechnologiesSolutions",
+        "IPIXTechnologies",
+        "Ontash",
+        "ZennodeTechnologiesLLP",
+        "MozilarTechnologies",
+        "YouGotAGift",
+        "QuizoTechnologies",
+        "RBNTechnologies",
+        "John&Smith",
+        "OdoxSoft",
+        "LogicDreams",
+        "TechlogicaITDTSolutionsPvt.Ltd.",
+        "LeeyeTTechnoHubLLP",
+        "MKMInfoSolutionsPvt.Ltd.",
+        "EREBusinessSolutionsPvt.Ltd.",
+        "LilacInfoTech",
+        "SaplingsInfotech",
+        "ABANA",
+        "RIMStechnology",
+        "FantacodePvt.Ltd.",
+        "TechnareusPvt.Ltd.",
+        "InfiniteOpenSourceSolutions",
+        "VeuzTechnologies",
+        "Codeacepvt.Ltd.",
+        "AxelTechnologies",
+        "Eljo",
+        "GridestoneTechnologiesLLP",
+        "SprintisleDigitalSolutionsPvt.Ltd.",
+        "SeclobTechnologies",
+        "Credot",
+        "Welkinwits",
+        "Keype",
+        "Doctomart",
+        "TigabitsSolutions",
+        "Analystor",
+        "ArclifTechnologies",
+        "Networth",
+        "IlluziaLabs",
+        "HexwhateInteractiveLLP",
+        "BpractTechnologiesPvt.Ltp",
+        "Edumpus",
+        "AufaitTechnologies",
+        "ESynergy",
+        "Pixbit",
+
+    ];
+
+
+
+
+    let input = document.querySelector(".company_name"); // Select by class name
+    let suggestions = document.getElementById("suggestions");
+    window.onload = () => {
+        input.value = "";
+        clearSuggestions();
     };
-    console.log(availableCompanies)
-    $(function() {
-        $(".company_name").autocomplete({
-            source: availableCompanies,
-            minLength: 1 // Minimum number of characters before suggestions appear
-        });
+
+    const clearSuggestions = () => {
+        suggestions.innerHTML = "";
+    };
+
+    const caseCheck = (word) => {
+        let inp = input.value.toLowerCase(); // Convert input to lowercase
+        return word.toLowerCase().startsWith(inp) ? word : "";
+    };
+
+    input.addEventListener("input", () => {
+        clearSuggestions();
+        let inputValue = input.value.trim().toLowerCase();
+
+        if (inputValue !== "") {
+            for (let i = 0; i < words.length; i++) {
+                let suggestionText = caseCheck(words[i]);
+                if (suggestionText !== "") {
+                    displaySuggestion(suggestionText);
+                }
+            }
+        }
     });
+
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && suggestions.innerHTML !== "") {
+            e.preventDefault();
+            input.value = suggestions.children[0].textContent;
+            clearSuggestions();
+        }
+    });
+
+    const displaySuggestion = (text) => {
+        const suggestionItem = document.createElement("div");
+        suggestionItem.classList.add("suggestion-item");
+        suggestionItem.textContent = text;
+
+        suggestionItem.addEventListener("click", () => {
+            input.value = text;
+            clearSuggestions();
+        });
+
+        suggestions.appendChild(suggestionItem);
+    };
 </script>
 
 <button type="submit" onclick="loadThree()" class="btn btn-primary">Get Phrase</button>
