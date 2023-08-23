@@ -1,0 +1,67 @@
+ {% load static %}
+
+
+<h2 data-aos="fade-up" class="alert">Please remember the phrase.</h2>
+<!-- 
+    <div id="countdown" style="color:red"></div>
+ -->
+<div id="countdown" style="color:red"></div>
+<div class="row">
+    {% for ph in phrase %}
+    <div class="col-md-6 form-group">
+        <input type="text" value="{{ ph }}" name="name" class="form-control phrase_{{forloop.counter}}" id="name" required>
+    </div>
+    {% if forloop.counter|divisibleby:2 %}
+</div>
+<div class="row">
+    <div class="form-group mt-3">
+
+    </div>
+    {% endif %} {% endfor %}
+</div>
+<div class="form-group mt-3">
+
+</div>
+
+<button style="display:none" type="submit" onclick="loadFour()" class="btn btn-primary">Submit</button>
+
+
+
+<div class="row gy-4" data-aos="fade-up" data-aos-delay="400">
+
+    <div class="col-lg-3 col-6">
+        <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+
+        </div>
+    </div>
+    <!-- End Stats Item -->
+
+    <div class="col-lg-3 col-6">
+        <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+
+        </div>
+    </div>
+    <!-- End Stats Item -->
+
+    <div class="col-lg-3 col-6">
+        <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+
+        </div>
+    </div>
+    <!-- End Stats Item -->
+
+    <div class="col-lg-3 col-6">
+        <div class="stats-item text-center w-100 h-100">
+            <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+
+        </div>
+    </div>
+    <!-- End Stats Item -->
+
+</div>
+<script>
+    startCountdown();
+</script>

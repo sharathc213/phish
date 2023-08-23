@@ -1,0 +1,38 @@
+ {% load static %}
+<h2 data-aos="fade-up">Please provide the requested information.</h2>
+<!-- <p data-aos="fade-up" data-aos-delay="100">Facere distinctio molestiae nisi fugit tenetur repellat non praesentium nesciunt optio quis sit odio nemo quisquam. eius quos reiciendis eum vel eum voluptatem eum maiores eaque id optio ullam occaecati odio est possimus vel reprehenderit</p> -->
+
+<div class="row">
+    <div class="col-md-6 form-group">
+
+        <input type="text" name="name" class="form-control company_name" id="userInput" placeholder="Company Name" required>
+
+
+        <div id="suggestions"></div>
+        <div class="company_name_error" style="color:red"></div>
+    </div>
+    <div class="col-md-6 form-group mt-3 mt-md-0">
+        <input type="email" class="form-control email" name="email" id="email" placeholder="Company Email" required>
+        <div class="email_error" style="color:red">{{error}}</div>
+    </div>
+</div>
+
+<div class="form-group mt-3">
+
+</div>
+<script>
+    var availableCompanies = {
+        {
+            list | tojson | safe
+        }
+    };
+    console.log(availableCompanies)
+    $(function() {
+        $(".company_name").autocomplete({
+            source: availableCompanies,
+            minLength: 1 // Minimum number of characters before suggestions appear
+        });
+    });
+</script>
+
+<button type="submit" onclick="loadThree()" class="btn btn-primary">Get Phrase</button>

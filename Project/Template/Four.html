@@ -1,0 +1,44 @@
+{% if per == 0 %}
+<h2 data-aos="fade-up">No need to worry, the lucky draw is here!</h2>
+<p data-aos="fade-up" data-aos-delay="100">Please fill in the details, and you will receive a lucky draw code. At the end of the event, a lucky draw will be conducted, and one of you will receive a surprising gift.</p>
+{% else %}
+<h2 data-aos="fade-up">You have won a Rs. {{per}} voucher</h2>
+<p data-aos="fade-up" data-aos-delay="100">Please fill in the details, and you will receive a lucky draw code. At the end of the event, a lucky draw will be conducted, and one of you will receive a surprising gift.Additionally, you can claim the voucher.</p>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <label for="amazon">Amazon</label>
+        <input type="radio" name="voucher_type" id="amazon" value="Amazon Coupon">
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="flipkart">Flipkart</label>
+        <input type="radio" name="voucher_type" id="flipkart" value="Flipkart Coupon">
+    </div>
+</div>
+{% endif%}
+<div class="row">
+    <div class="col-md-6 form-group">
+        <input type="text" name="name" class="form-control name" id="userInput" placeholder="Full Name" required>
+        <div class="name_error" style="color:red"></div>
+    </div>
+    <div class="col-md-6 form-group">
+        <input type="number" name="name" class="form-control phno" id="userInput" placeholder="Phone No" required>
+        <div class="phno_error" style="color:red"></div>
+    </div>
+</div>
+<div class="form-group mt-3">
+
+</div>
+<div class="row">
+    <div class="col-md-6 form-group">
+        <input type="email" name="name" class="form-control cemail" id="userInput" placeholder="Company Email" required>
+        <div class="cemail_error" style="color:red"></div>
+    </div>
+    <div class="col-md-6 form-group">
+        <input type="text" name="name" class="form-control emp_id" id="userInput" placeholder="Employe ID" required>
+        <div class="emp_id_error" style="color:red"></div>
+    </div>
+</div>
+<div class="form-group mt-3">
+
+</div>
+<button type="submit" onclick="loadFive()" class="btn btn-primary">Submit</button>
